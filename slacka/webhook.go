@@ -42,6 +42,10 @@ func (c *Client) Send(urlKey, message string, options ...WebhookOption) error {
 
 func (c *Client) alert(message, severity, color string) error {
 
+	if c.errorURL == "" {
+		return errors.New("Error URL is not set to client")
+	}
+
 	b := &bytes.Buffer{}
 	fmt.Fprintf(b, "*Message:* %s\n", message)
 	fmt.Fprintf(b, "*Severity:* %s\n", severity)
