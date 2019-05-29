@@ -11,6 +11,10 @@ import (
 
 func (c *Client) send(url, message string, attachments []slack.Attachment, options ...WebhookOption) error {
 
+	if c == nil {
+		return errors.New("Client is not initialized")
+	}
+
 	msg := slack.WebhookMessage{
 		Username:    c.projectName,
 		IconEmoji:   ":" + c.iconEmoji + ":",
@@ -32,6 +36,10 @@ func (c *Client) send(url, message string, attachments []slack.Attachment, optio
 // Send is a function to send message to Slack.
 func (c *Client) Send(urlKey, message string, options ...WebhookOption) error {
 
+	if c == nil {
+		return errors.New("Client is not initialized")
+	}
+
 	url, ok := c.urlMap[urlKey]
 	if !ok {
 		return errors.New("urlKey is not set to client")
@@ -41,6 +49,10 @@ func (c *Client) Send(urlKey, message string, options ...WebhookOption) error {
 }
 
 func (c *Client) alert(message, severity, color string) error {
+
+	if c == nil {
+		return errors.New("Client is not initialized")
+	}
 
 	if c.errorURL == "" {
 		return errors.New("Error URL is not set to client")
