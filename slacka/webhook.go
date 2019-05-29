@@ -112,11 +112,13 @@ func (c *Client) Errorf(format string, a ...interface{}) error {
 }
 
 // Fatal sends a fatal message to Slack Error Channel.
+// This method doesn't call os.Exit(1).
 func (c *Client) Fatal(message string) error {
 	return c.alert(message, "Fatal", red)
 }
 
 // Fatalf sends a fatal message using format to Slack Error Channel.
+// This method doesn't call os.Exit(1).
 func (c *Client) Fatalf(format string, a ...interface{}) error {
 	return c.Fatal(fmt.Sprintf(format, a...))
 }
