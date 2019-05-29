@@ -38,6 +38,8 @@ err := client.Send("URL_KEY", "This is message!",
 
 ### Send Error Message
 
+Every method has a method of format type like `Debugf`.
+
 ```go
 // Debug
 err := client.Debug("This is message!")
