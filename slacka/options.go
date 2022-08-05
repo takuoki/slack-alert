@@ -1,7 +1,7 @@
 package slacka
 
 import (
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 // WebhookOption changes some parameters of the webhook message.
@@ -17,12 +17,12 @@ func WebhookUsername(username string) WebhookOption {
 	}
 }
 
-// WebhookIconEmoji changes icon emoji of the webhook message.
-func WebhookIconEmoji(iconEmoji string) WebhookOption {
+// WebhookIconURL changes icon url of the webhook message.
+func WebhookIconURL(iconURL string) WebhookOption {
 	return func(msg *slack.WebhookMessage) {
 		if msg == nil {
 			return
 		}
-		msg.IconEmoji = ":" + iconEmoji + ":"
+		msg.IconURL = iconURL
 	}
 }

@@ -16,7 +16,7 @@ go get github.com/takuoki/slack-alert/slacka
 ### Create New Client
 
 ```go
-client := slacka.New("projectName", "serviceName", "icon_emoji")
+client := slacka.New("username", "service name", "icon url")
 client.SetURL("URL_KEY1", "https://hooks.slack.com/services/xxx/xxx/xxxxx")
 client.SetURL("URL_KEY2", "https://hooks.slack.com/services/yyy/yyy/yyyyy")
 client.SetErrorURL("https://hooks.slack.com/services/zzz/zzz/zzzzz")
@@ -25,15 +25,15 @@ client.SetErrorURL("https://hooks.slack.com/services/zzz/zzz/zzzzz")
 ### Send Message
 
 ```go
-err := client.Send("URL_KEY", "This is message!")
+err := client.Send("URL_KEY1", "This is message!")
 ```
 
-You can change `username` and `icon_emoji` with options.
+You can change `username` and `icon url` with options.
 
 ```go
-err := client.Send("URL_KEY", "This is message!",
+err := client.Send("URL_KEY1", "This is message!",
   slacka.WebhookUsername("new username"),
-  slacka.WebhookIconEmoji("new_icon_emoji"))
+  slacka.WebhookIconURL("new icon url"))
 ```
 
 ### Send Error Message

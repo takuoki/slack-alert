@@ -6,18 +6,18 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 func (c *Client) send(url, message string, attachments []slack.Attachment, options ...WebhookOption) error {
 
 	if c == nil {
-		return errors.New("Client is not initialized")
+		return errors.New("client is not initialized")
 	}
 
 	msg := slack.WebhookMessage{
-		Username:    c.projectName,
-		IconEmoji:   ":" + c.iconEmoji + ":",
+		Username:    c.userame,
+		IconURL:     c.iconURL,
 		Text:        message,
 		Attachments: attachments,
 	}
@@ -27,7 +27,7 @@ func (c *Client) send(url, message string, attachments []slack.Attachment, optio
 	}
 
 	if err := slack.PostWebhook(url, &msg); err != nil {
-		return fmt.Errorf("Error occurred in slack.PostWebhook: %v", err)
+		return fmt.Errorf("error occurred in slack.PostWebhook: %v", err)
 	}
 
 	return nil
@@ -37,7 +37,7 @@ func (c *Client) send(url, message string, attachments []slack.Attachment, optio
 func (c *Client) Send(urlKey, message string, options ...WebhookOption) error {
 
 	if c == nil {
-		return errors.New("Client is not initialized")
+		return errors.New("client is not initialized")
 	}
 
 	url, ok := c.urlMap[urlKey]
@@ -51,11 +51,11 @@ func (c *Client) Send(urlKey, message string, options ...WebhookOption) error {
 func (c *Client) alert(message, severity, color string) error {
 
 	if c == nil {
-		return errors.New("Client is not initialized")
+		return errors.New("client is not initialized")
 	}
 
 	if c.errorURL == "" {
-		return errors.New("Error URL is not set to client")
+		return errors.New("error url is not set to client")
 	}
 
 	b := &bytes.Buffer{}
@@ -70,7 +70,7 @@ func (c *Client) alert(message, severity, color string) error {
 
 	return c.send(
 		c.errorURL,
-		fmt.Sprintf("Error occurred in the service `%s`.", c.serviceName),
+		fmt.Sprintf("error occurred in the service `%s`.", c.serviceName),
 		[]slack.Attachment{a},
 	)
 }
